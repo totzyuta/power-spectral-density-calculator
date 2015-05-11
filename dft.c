@@ -57,9 +57,12 @@ int main(int argc, char *argv[])
   // フーリエ変換を行う
   dft(data);
 
+  double fk;
+
   for (int j=0; j<DATASIZE/2; j++) {
     printf("%d: %e\n", j, data[j]);
-    fprintf(wfp,"%.32f\n",data[j]) ;
+    fk = j / (DATASIZE * DELTA);
+    fprintf(wfp,"%f %f\n", fk, 10*log10(data[j])) ;
   }
 
   /* ファイルのクローズ */
