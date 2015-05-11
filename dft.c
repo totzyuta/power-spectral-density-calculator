@@ -25,7 +25,7 @@ void dft(double data[DATASIZE] /*[入力] 実数数値列としての信号: 配
     double delta;
     delta = pow(DELTA, 2.0);
     data[k] = delta*(Re+Im);
-    printf("%d, %e\n", k, result[k]);
+    // printf("%d, %e\n", k, result[k]);
   }// j
 }
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
   double fk;
 
   for (int j=0; j<DATASIZE/2; j++) {
-    printf("%d: %e\n", j, data[j]);
+    // printf("%d: %e\n", j, data[j]);
     fk = j / (DATASIZE * DELTA);
     fprintf(wfp,"%f %f\n", fk, 10*log10(data[j])) ;
   }
