@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
   }
 
   FILE *wfp;
-  char *wfilename = "result.csv";  
+  char *wfilename = "spectrum.dat";  
   wfp = fopen(wfilename,"w");     //ファイルのオープン
 
   // フーリエ変換を行う

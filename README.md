@@ -33,3 +33,48 @@ http://www.tagen.tohoku.ac.jp/labo/ishijima/FFT-02.html
 うーん、なんか、曖昧ですが...笑
 
 まぁやってみないことにはわからない、とりあえずコードを書いてみます。
+
+
+
+## Cでパワースペクトル密度を求める
+
+### パワースペクトル密度を求めるプログラム
+
+音声データからパワースペクトル密度P(f_k)をC言語のプログラムにより計算し、そのグラフを描きなさい。ただしk=0, 1, ..., N/2-1 に対し、横軸にf_k = k/NΔ [Hz], 縦軸に10log_10_P(f_k) [dB] をプロットする。
+
+
+
+（離散）フーリエ変換については以下のブログがすごくよく書かれてて楽しい。ただしC++なので`auto&`や`const auto&`は[使えない](http://d.hatena.ne.jp/prettysoft/20101113/1418577983)か。
+
+http://d.hatena.ne.jp/nurs/20130308/1362762361
+
+- プログラムの世界でできるのは**離散フーリエ変換のみ** (微積分みたいな近似的なことができないから？）
+
+また以下のプログラムも直感的でわかりやすいと思う。
+
+http://www.geocities.jp/supermisosan/spectrum.html
+
+
+
+
+---
+
+
+そして最終的に高速フーリエ変換でやりたいと考えてたので、同じブログの以下の記事も参考に。
+
+http://d.hatena.ne.jp/nurs/20130617/1371483633
+
+うむ、高速フーリエ変換の式の導出に関しては1mmも理解できるとは思えないけど...笑
+
+プログラムとしてもすごく長いみたいだけど、sinとcosがなくても計算できる+再帰だから速いのかな。
+
+---
+
+ソースコードは以下のようになった。フーリエ変換で求めた数値を、`spectram.dat`というファイルに書き込む設定になっている。
+
+https://github.com/totzYuta/power-spectral-density-calculator/blob/master/dft.c
+
+
+また、[今回の形式の音声データ](https://github.com/totzYuta/power-spectral-density-calculator/blob/master/data.csv)をパースして正規化するスクリプトもRubyで実装した。
+
+https://github.com/totzYuta/power-spectral-density-calculator/blob/master/normalize.rb
