@@ -78,3 +78,74 @@ https://github.com/totzYuta/power-spectral-density-calculator/blob/master/dft.c
 また、[今回の形式の音声データ](https://github.com/totzYuta/power-spectral-density-calculator/blob/master/data.csv)をパースして正規化するスクリプトもRubyで実装した。
 
 https://github.com/totzYuta/power-spectral-density-calculator/blob/master/normalize.rb
+
+
+## グラフに描写
+
+これをグラフに描写していく
+
+
+### gnuplotのインストール
+
+まず、以下を参考にMacでgnuplotを使えるようにしておく。
+
+http://qiita.com/noanoa07/items/a20dccff0902947d3e0c
+
+
+
+AquaTermが必要なのでダウンロードして、インストールしておく。　
+
+http://sourceforge.net/projects/aquaterm/?source=typ_redirect
+
+
+さきほどダウンロードしたaquatermを指定してbrewでgnuplotをインストール。
+
+```
+$ brew install gnuplot --with-aquaterm
+```
+
+
+
+### グラフを描写
+
+以下でgnuplotを対話的に操作できる。
+
+```
+$ gnulot
+```
+
+まず最初のグラフは
+
+```
+gnuplot> set xlabel '[Hz]'
+gnuplot> set ylabel '[dB]'
+gnuplot> plot 'spectrum.dat' with lines
+```
+
+のようにすると、[spectrum1.pdf](https://github.com/totzYuta/power-spectral-density-calculator/blob/master/spectrum1.pdf)のようなグラフを得ることができた。
+
+
+また、
+
+```
+gnuplot> set xlabel '[s]'
+gnuplot> set ylabel '[V]'
+gnuplot> plot 'voice-data.csv' with lines
+```
+
+ようにして自分の音声データをグラフとして描写したところ、[voice-graph.pdf](https://github.com/totzYuta/power-spectral-density-calculator/blob/master/voice-graph.pdf)となった。
+
+
+
+
+また、最初に作成した`spectrum.dat`よりピーク時の周波数を`100`として、２番目に作成した自分の音声データと、周波数100の正弦波のグラフを重ねて表示させてみる。コマンドは以下のように行う。
+
+```
+gnuplot> set xlabel '[Hz]'
+gnuplot> set ylabel '[dB]'
+gnuplot> plot "data-voice.csv" with lines, 0.01*sin(2*3.14*100*x-8.5) with lines
+```
+
+結果は[data-voice.pdf](https://github.com/totzYuta/power-spectral-density-calculator/blob/master/voice-sin.pdf)のようになった。
+
+ピーク時の周波数を自分の音声の測定データから読み取ることはむずかしく、目測で100Hzとしたところ大きな波の動きは似た傾向を示しているように見えるグラフとなった。
